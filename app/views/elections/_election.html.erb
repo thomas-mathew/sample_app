@@ -1,0 +1,20 @@
+<li style="list-style: none">
+  <%= link_to election.name, election %>
+  Administrator: <%= link_to User.find(election.owner_id).name, User.find(election.owner_id) %>
+  <%= election.description %>
+  <% vote = Vote.where(election_id: election.id, user_id: current_user.id).first %>
+  <% if vote.direction.nil? %>
+	  <%= form_tag cast_vote_elections_path, :class => "form-inline" do %>
+	  	<%= hidden_field_tag "election_id", election.id %>
+		  <%= radio_button_tag(:direction, "Pro") %>
+			<%= label_tag(:true, "Pro", :style => "display:inline vertical-align") %>
+			<%= radio_button_tag(:direction, "Con") %>
+			<%= label_tag(:false, "Con") %>
+			<%= text_field_tag :quantity, nil, size: 2 %>
+			<%= submit_tag "Vote", class: "btn" %>
+		<% end %>
+	<% else %>
+		You have commited <%=vote.quantity %> dollars for <%= vote.direction ? "Pro" : "Con" %>!	
+	<% end %>
+	<hr>
+</li>

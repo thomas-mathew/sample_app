@@ -10,6 +10,9 @@
 #
 
 class User < ActiveRecord::Base
+  has_many :votes
+  has_many :elections, :through => :votes
+
   attr_accessible :name, :email, :password, :password_confirmation, :profile
   has_secure_password
 

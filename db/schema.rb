@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130703184553) do
+ActiveRecord::Schema.define(:version => 20130705152416) do
+
+  create_table "elections", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.boolean  "outcome"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "owner_id"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -26,5 +35,18 @@ ActiveRecord::Schema.define(:version => 20130703184553) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "votes", :force => true do |t|
+    t.decimal  "quantity"
+    t.boolean  "direction"
+    t.integer  "user_id"
+    t.integer  "election_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "votes", ["election_id"], :name => "index_votes_on_election_id"
+  add_index "votes", ["user_id", "election_id"], :name => "index_votes_on_user_id_and_election_id", :unique => true
+  add_index "votes", ["user_id"], :name => "index_votes_on_user_id"
 
 end

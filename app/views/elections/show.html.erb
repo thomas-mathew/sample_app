@@ -1,0 +1,46 @@
+<% provide(:title, @election.name) %>
+<div class="row">
+  <aside class="span12">
+    <section>
+      <h1>
+        <%= @election.name %>
+      </h1>
+      <h4>
+        Administrator: <%= link_to User.find(@election.owner_id).name, User.find(@election.owner_id) %>
+      </h4>
+      <p>
+        <%= @election.description %>
+      </p>
+      <hr width="100%" align=center>
+      <table class="table table-striped table-bordered table-condensed">
+        <thead>
+          <tr>
+            <th>Participant</th>
+            <th>Vote status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for participant in @participants %>
+          <tr>
+            <td><%= participant.name%></td>
+            <td></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      
+      <div class="btn click_show">Invite participants</div>
+
+      <div class="click_shown" style="display: none">
+        <br>
+        Invite other users to join this election using their e-mails:
+          <%= form_tag vote_elections_path do %>
+            <%= text_field_tag :invite_email %>
+            <%= hidden_field_tag "election_id", @election.id %>
+            <%= submit_tag "Invite" %>
+          <% end %>
+          <!-- Need to update with 3 error messages -->
+      </div>
+    </section>
+  </aside>
+</div>

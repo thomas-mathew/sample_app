@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include SessionsHelper
-  before_filter :signed_in_user, only: [:index, :edit, :update]
-  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :signed_in_user, :only => [:index, :edit, :update]
+  before_filter :correct_user,   :only => [:edit, :update]
 
   def show
     @user = User.find(params[:id])
@@ -55,4 +55,5 @@ private
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
   end
+
 end

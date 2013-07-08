@@ -1,0 +1,22 @@
+<% provide(:title, 'All Elections') %>
+<h1>Elections</h1>
+
+<h4>Elections Owned</h4>
+<ul class="elections">
+	<% for election_owned in @elections_owned do %> 
+  		<li style="list-style: none">
+  		<%= link_to election_owned.name, election_owned %><br>
+  		<%= election_owned.description %>	
+		</li>
+  	<% end %>
+</ul>	
+<br>
+<h4>Elections Invited</h4>
+<ul class="elections">
+	<% for election in current_user.elections do %> 
+  		<%= render election %>
+  	<% end %>
+</ul>
+
+<!-- Note that the code above is refactored using _election.html.erb
+This works because when you render an object, Rails looks for the partial of the same name as the class -->

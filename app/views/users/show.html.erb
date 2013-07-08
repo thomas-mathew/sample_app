@@ -15,6 +15,9 @@
       <% else %>
       <p><%= @user.profile %></p>
       <% end %>
+      <% if @user.admin? %>
+      <p>Create an <%= link_to "election", new_election_path %></p>
+      <% end %>
     </section>
   </aside>
 </div>
